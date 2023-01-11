@@ -1,0 +1,38 @@
+[
+    {
+      "domain_id,": "PF00001,",
+      "domain_description": "7transmembranereceptor(rhodopsinfamily)"
+    },
+    {
+      "domain_id,": "PF00002,",
+      "domain_description": "7transmembranereceptor(Secretinfamily)"
+    },
+    {
+      "domain_id,": "PF00003,",
+      "domain_description": "7transmembranesweet-tastereceptorof3GCPR"
+    },
+    {
+      "domain_id,": "PF00004,",
+      "domain_description": "ATPasefamilyassociatedwithvariouscellularactivities(AAA)"
+    },
+    {
+      "domain_id,": "PF00005,",
+      "domain_description": "ABCtransporter"
+    },
+    {
+      "domain_id,": "PF00006",
+      "domain_description": "ATPsynthasealpha/betafamily: nucleotide-bindingdomain"
+    },
+    {
+      "domain_id,": "PF00007,",
+      "domain_description": "Cystine-knotdomain"
+    },
+    {
+      "domain_id,": "PF00008,",
+      "domain_description": "EGF-likedomain"
+    },
+    {
+      "domain_id,": "PF00010,",
+      "domain_description": "Helix-loop-helixDNA-bindingdomain"
+    }
+  ]

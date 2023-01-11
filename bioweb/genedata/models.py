@@ -67,3 +67,11 @@ class Data_set(models.Model):
     
     def __str__(self):
         return self.protein_id
+
+class Pfam_description(models.Model):
+    pfam_id = models.CharField(max_length=256, null=False,
+    blank=False, db_index=True)
+    ogranism_scientific_name = models.CharField(max_length=256)
+
+    def __str__(self):
+        return self.pfam_id

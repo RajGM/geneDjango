@@ -1,6 +1,6 @@
 {% extends "./base.html" %} {% block content %}
 <h4>POST http://127.0.0.1:8000/api/protein/ -add a new record</h4>
-<a href="/api/gene/7">http://127.0.0.1:8000/api/protein/</a>
+<a href="/api/protein/7">http://127.0.0.1:8000/api/protein/</a>
 <h4>
   GET http://127.0.0.1:8000/api/protein/[PROTEIN ID] - return the protein
   sequence and all we know about it
@@ -12,30 +12,30 @@
   GET http://127.0.0.1:8000/api/pfam/[PFAM ID] - return the domain and it's
   description
 </h4>
-<a href="/api/pfam/PF003600TESTID"
-  >http://127.0.0.1:8000/api/pfam/PF003600TESTID</a
+<a href="/api/pfam/PF003600"
+  >http://127.0.0.1:8000/api/pfam/PF003600</a
 >
 
 <h4>
   GET http://127.0.0.1:8000/api/proteins/[TAXA ID] - return a list of all
   proteins for a given organism
 </h4>
-<a href="/api/proteins/55661TAXAID"
-  >http://127.0.0.1:8000/api/proteins/55661TAXAID</a
+<a href="/api/proteins/55661"
+  >http://127.0.0.1:8000/api/proteins/55661</a
 >
 
 <h4>
   GET http://127.0.0.1:8000/api/pfams/[TAXA ID] - return a list of all domains
   in all the proteins for a given organism
 </h4>
-<a href="/api/pfams/55661TAXAID">http://127.0.0.1:8000/api/pfams/55661TAXAID</a>
+<a href="/api/pfams/55661">http://127.0.0.1:8000/api/pfams/55661</a>
 
 <h4>
   GET http://127.0.0.1:8000/api/coverage/[PROTEIN ID] - return a domain coverage
   for a given protein, (start-stop)
 </h4>
 <a href="/api/coverage/A0A0PROTEINID"
-  >http://127.0.0.1:8000/api/pfams/55661TAXAID</a
+  >http://127.0.0.1:8000/api/pfams/A0A0PROTEINID</a
 >
 
 <br />
