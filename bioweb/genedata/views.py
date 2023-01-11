@@ -10,19 +10,9 @@ from .models import *
 def index(request):
     return render(request,'genedata/index.html',{"test":"Test"})
 
-# Create your views here.
-class GeneList(DetailView):
-    
-    #def get_template_names(self):
-    #    return render('genedata/index.html')
-    
-    def get_template_names(self):
-        if True:
-            return 'genedata/list.html'
-        return 'genedata/index.html'
 
 
-    '''
+'''
     model = Gene
     context_object_name = 'master_genes'
     #template_name = 'genedata/index.html'
@@ -45,7 +35,7 @@ class GeneList(DetailView):
                 return 'genedata/list.html'
         return 'genedata/index.html'
 
-    '''
+'''
 
 
 '''

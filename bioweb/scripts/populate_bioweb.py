@@ -4,7 +4,7 @@ import django
 import csv
 from collections import defaultdict
 
-sys.path.append("/django/geneTest/bioweb")
+sys.path.append("/midTerm/bioweb")
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'bioweb.settings')
 django.setup()
@@ -20,19 +20,13 @@ with open(data_file) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     header = csv_reader.__next__()
     for row in csv_reader:
-        #print(row[0]+" "+row[1])
         pfams.append(row)
-
 
 PfamDescription.objects.all().delete()
 
 for pfam in pfams:
-    #print(pfam)
     indiRow = PfamDescription.objects.create(pfam_id=pfam[0],ogranism_scientific_name=pfam[1])
     indiRow.save()
-    
-#row = EC.objects.create(ec_name=entry)
-#row.save()
 
 print("Data entry DONE")
 
