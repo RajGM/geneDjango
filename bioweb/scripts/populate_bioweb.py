@@ -15,80 +15,53 @@ data_file = '/midTerm/bioweb/pfam_descriptions.csv'
 print("Data entry START")
 
 pfams = list()
+protein_sequences = list()
+protein_details = list()
 
+'''
 with open(data_file) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     header = csv_reader.__next__()
     for row in csv_reader:
         pfams.append(row)
 
+
 PfamDescription.objects.all().delete()
 
 for pfam in pfams:
     indiRow = PfamDescription.objects.create(pfam_id=pfam[0],ogranism_scientific_name=pfam[1])
     indiRow.save()
-
-print("Data entry DONE")
+'''
 
 '''
-genes = defaultdict(list)
-sequencing = set()
-ec = set()
-products = defaultdict(dict)
-attributes = defaultdict(dict)
+data_file = '/midTerm/bioweb/protein_data_sequences.csv'
 
 with open(data_file) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     header = csv_reader.__next__()
     for row in csv_reader:
-        product_pairs = row[9].split(';')
-        attribute_pairs = row[10].split(';')
-    for pair in product_pairs:
-        tupple = pair.split(":")
-        products[row[0]][tupple[0]] = tupple[1]
-    for pair in attribute_pairs:
-        tupple = pair.split(":")
-        attributes[row[0]][tupple[0]] = tupple[1]
-    ec.add(row[8])
-    sequencing.add((row[4], row[5]))
-    genes[row[0]] = row[1:4]+row[6:9]
-'''
+        protein_sequences.append(row)
 
-'''
 DataSequences.objects.all().delete()
-Protein.objects.all().delete()
-PfamDescription.objects.all().delete()
 
-ec_rows = {}
-sequencing_rows = {}
-gene_rows = {}
-
-for entry in ec:
-    row = EC.objects.create(ec_name=entry)
-    row.save()
-    ec_rows[entry] = row
-
-for seq_centre in sequencing:
-    row = Sequencing.objects.create(sequencing_factory=seq_centre[0],
-    factory_location=seq_centre[1])
-    row.save()
-    sequencing_rows[seq_centre[0]] = row
-
-for gene_id, data in genes.items():
-    row = Gene.objects.create(gene_id=gene_id, entity = data[0],start=data[1], stop=data[2],sense=data[3], start_codon=data[4],sequencing = sequencing_rows['Sanger'],ec=ec_rows[data[5]])
-    row.save()
-    gene_rows[gene_id] = row
-
-for gene_id, data_dict in products.items():
-    for key in data_dict.keys():
-        row = Product.objects.create(type=key, product=data_dict[key],
-        gene=gene_rows[gene_id])
-    row.save()
-
-for gene_id, data_dict in attributes.items():
-    for key in data_dict.keys():
-        row = Attribute.objects.create(key=key, value=data_dict[key])
-        row.gene.add(gene_rows[gene_id])
-        row.save()
-
+for protein_seq in protein_sequences:
+    indiSeq = DataSequences.objects.create(protein_id=protein_seq[0],protein_sequence=protein_seq[1])
+    indiSeq.save()
 '''
+
+data_file = '/midTerm/bioweb/protein_detail.csv'
+with open(data_file) as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=',')
+    header = csv_reader.__next__()
+    for row in csv_reader:
+        protein_details.append(row)
+        
+
+Protein.objects.all().delete()
+
+for proteinData in protein_details:
+    indiProData = Protein.objects.create(protein_id=proteinData[0],taxa_id=proteinData[1],clade_identifier=proteinData[2],scientific_name=proteinData[3],domain_description=proteinData[4],domain_id=proteinData[5],domain_start=proteinData[6],domain_stop=proteinData[7],length_protein=proteinData[8])
+    indiProData.save()
+
+print("Data entry DONE")
+
