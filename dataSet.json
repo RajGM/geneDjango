@@ -1,13 +1,13 @@
 [
     {
-      "domainStart": 157,
-      "domainEnd": 314,
-      "lengthProtein": 338,
-      "taxaID": 568076,
       "proteinID": "A0A014PQC0",
+      "taxaID": 568076,
       "cladeIdenitifier": "E",
       "scientificName": "Metarhizium robertsii",
       "domainDescription": "Glyceraldehyde 3-phosphate dehydrogenase catalytic domain",
-      "domainID": "PF02800"
+      "domainID": "PF02800",
+      "domainStart": 157,
+      "domainEnd": 314,
+      "lengthProtein": 338
     }
-  ]
+]

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import *
 
+'''
 class GeneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gene
@@ -14,7 +15,7 @@ def genes_list(request):
     return Response({
         'genes': serializer.data,
     })
-
+'''
 '''
 class GeneSerializer(serializers.Serializer):
     gene_id = serializers.CharField(required=True, allow_blank=False, max_length=256)

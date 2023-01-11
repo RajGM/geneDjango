@@ -11,7 +11,10 @@ from rest_framework import status
 #@api_view(['GET','POST'])
 @api_view(['GET','POST'])
 def protein_detail(request, pk):
+    if request.method == 'POST':
+        print(request.data)
     #query domain and add taxanomy as per format
+    
     data = [{
       "taxaID": 568076,
       "domainStart": 157,

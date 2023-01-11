@@ -6,10 +6,23 @@ from django.views.generic.edit import CreateView
 from django.views.generic.edit import DeleteView
 from django.views.generic.edit import UpdateView
 from .models import *
-from .forms import *
+
+def index(request):
+    return render('genedata/index.html')
 
 # Create your views here.
-class GeneList(ListView):
+class GeneList(DetailView):
+    
+    #def get_template_names(self):
+    #    return render('genedata/index.html')
+    
+    def get_template_names(self):
+        if True:
+            return 'genedata/list.html'
+        return 'genedata/index.html'
+
+
+    '''
     model = Gene
     context_object_name = 'master_genes'
     #template_name = 'genedata/index.html'
@@ -32,6 +45,10 @@ class GeneList(ListView):
                 return 'genedata/list.html'
         return 'genedata/index.html'
 
+    '''
+
+
+'''
 class GeneDetail(DetailView):
     model = Gene
     context_object_name = 'gene'
@@ -87,7 +104,7 @@ class GeneUpdate(UpdateView):
         context['master_genes'] = Gene.objects.all()
         return context
 
-
+'''
 '''
 class GeneList(ListView):
     model = Gene
