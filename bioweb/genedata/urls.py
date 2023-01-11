@@ -4,7 +4,7 @@ from . import api
 
 urlpatterns = [
     path('', views.GeneList.as_view(), name='index'),
-    path('api/gene/<int:pk>/', api.gene_detail),
+    path('api/protein/<int:pk>/', api.gene_detail),
     #POST ADD path('api/protein/<int:pk>/', api.gene_detail),
     #GET path('api/protein/<int:pk>/', api.gene_detail),
     #path('api/proteins/<int:pk>/', api.gene_detail),

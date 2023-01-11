@@ -34,14 +34,13 @@ with open(data_file) as csv_file:
     sequencing.add((row[4], row[5]))
     genes[row[0]] = row[1:4]+row[6:9]
 
-'''
+
 GeneAttributeLink.objects.all().delete()
 Gene.objects.all().delete()
 EC.objects.all().delete()
 Sequencing.objects.all().delete()
 Attribute.objects.all().delete()
 Product.objects.all().delete()
-'''
 
 ec_rows = {}
 sequencing_rows = {}
@@ -74,3 +73,5 @@ for gene_id, data_dict in attributes.items():
         row = Attribute.objects.create(key=key, value=data_dict[key])
         row.gene.add(gene_rows[gene_id])
         row.save()
+
+print("POPULATION DONE")
