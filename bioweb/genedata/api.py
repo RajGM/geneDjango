@@ -8,9 +8,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-#@api_view(['GET','POST'])
 @api_view(['GET','POST'])
-def protein_detail(request, pk):
+def protein_add(request):
+    
     if request.method == 'POST':
         serializer = ProteinSerializer(data=request.data)
         if serializer.is_valid():
@@ -18,6 +18,12 @@ def protein_detail(request, pk):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     #query domain and add taxanomy as per format
+    
+    return Response()
+
+#@api_view(['GET','POST'])
+@api_view(['GET'])
+def protein_detail(request, pk):
     
     data = [{
       "proteinID": "A0A014PQC0",
@@ -32,7 +38,13 @@ def protein_detail(request, pk):
       "proteinSequence": "MVIGVGFLLVLFSSSVLGILNAGVQLRIEELFDTPGHTNNWAVLVCTSRFWFNYRHVSNVLALYHTVKRLGIPDSNIILMLAEDVPCNPRNPRPEAAVLSA"
     }]
     returnData = data[0]
-    return Response(returnData)
+    
+    print(pk)
+
+    if(pk=="0"):
+        return Response()
+    else:    
+        return Response(returnData)
 
 @api_view(['GET'])
 def pfam_detail(request, pk):

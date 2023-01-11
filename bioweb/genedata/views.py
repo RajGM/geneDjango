@@ -190,3 +190,19 @@ def poslist(request):
                                                   'PosList','master_genes': master_genes})
 
 '''
+#accepted one
+'''
+{
+      "protein_id": "A0A014PQC0",
+      "taxa_id": 568076,
+      "clade_idenitifier": "E",
+      "scientific_name": "Metarhizium robertsii",
+      "domain_description": "Glyceraldehyde 3-phosphate dehydrogenase catalytic domain",
+      "domain_id": "PF02800",
+      "domain_start": 157,
+      "domain_stop": 314,
+      "length_protein": 338
+}
+
+
+'''
