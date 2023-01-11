@@ -12,19 +12,23 @@ from rest_framework import status
 @api_view(['GET','POST'])
 def protein_detail(request, pk):
     if request.method == 'POST':
-        print(request.data)
+        serializer = ProteinSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     #query domain and add taxanomy as per format
     
     data = [{
-      "taxaID": 568076,
-      "domainStart": 157,
-      "domainEnd": 314,
-      "lengthProtein": 338,
       "proteinID": "A0A014PQC0",
+      "taxaID": 568076,
       "cladeIdenitifier": "E",
       "scientificName": "Metarhizium robertsii",
       "domainDescription": "Glyceraldehyde 3-phosphate dehydrogenase catalytic domain",
       "domainID": "PF02800",
+      "domain_start": 157,
+      "domain_stop": 314,
+      "lengthProtein": 338,
       "proteinSequence": "MVIGVGFLLVLFSSSVLGILNAGVQLRIEELFDTPGHTNNWAVLVCTSRFWFNYRHVSNVLALYHTVKRLGIPDSNIILMLAEDVPCNPRNPRPEAAVLSA"
     }]
     returnData = data[0]

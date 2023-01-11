@@ -8,7 +8,7 @@ from django.views.generic.edit import UpdateView
 from .models import *
 
 def index(request):
-    return render('genedata/index.html')
+    return render(request,'genedata/index.html',{"test":"Test"})
 
 # Create your views here.
 class GeneList(DetailView):

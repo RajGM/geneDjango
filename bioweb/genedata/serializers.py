@@ -1,6 +1,12 @@
 from rest_framework import serializers
 from .models import *
 
+class ProteinSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Protein
+        fields = ['protein_id','taxa_id','clade_identifier','scientific_name','domain_description',
+        'domain_id','domain_start','domain_stop','length_protein']
+
 '''
 class GeneSerializer(serializers.ModelSerializer):
     class Meta:

@@ -34,13 +34,9 @@ with open(data_file) as csv_file:
     sequencing.add((row[4], row[5]))
     genes[row[0]] = row[1:4]+row[6:9]
 
-
-GeneAttributeLink.objects.all().delete()
-Gene.objects.all().delete()
-EC.objects.all().delete()
-Sequencing.objects.all().delete()
-Attribute.objects.all().delete()
-Product.objects.all().delete()
+DataSequences.objects.all().delete()
+Protein.objects.all().delete()
+PfamDescription.objects.all().delete()
 
 ec_rows = {}
 sequencing_rows = {}
