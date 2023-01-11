@@ -11,7 +11,32 @@ django.setup()
 
 from genedata.models import *
 
-data_file = '/django/geneTest/bioweb/exampleData.csv'
+data_file = '/midTerm/bioweb/pfam_descriptions.csv'
+print("Data entry START")
+
+pfams = list()
+
+with open(data_file) as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=',')
+    header = csv_reader.__next__()
+    for row in csv_reader:
+        #print(row[0]+" "+row[1])
+        pfams.append(row)
+
+
+PfamDescription.objects.all().delete()
+
+for pfam in pfams:
+    #print(pfam)
+    indiRow = PfamDescription.objects.create(pfam_id=pfam[0],ogranism_scientific_name=pfam[1])
+    indiRow.save()
+    
+#row = EC.objects.create(ec_name=entry)
+#row.save()
+
+print("Data entry DONE")
+
+'''
 genes = defaultdict(list)
 sequencing = set()
 ec = set()
@@ -33,7 +58,9 @@ with open(data_file) as csv_file:
     ec.add(row[8])
     sequencing.add((row[4], row[5]))
     genes[row[0]] = row[1:4]+row[6:9]
+'''
 
+'''
 DataSequences.objects.all().delete()
 Protein.objects.all().delete()
 PfamDescription.objects.all().delete()
@@ -70,4 +97,4 @@ for gene_id, data_dict in attributes.items():
         row.gene.add(gene_rows[gene_id])
         row.save()
 
-print("POPULATION DONE")
+'''
