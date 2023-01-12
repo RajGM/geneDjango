@@ -19,7 +19,8 @@ def protein_add(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     # query domain and add taxanomy as per format
 
-    return Response()
+    if request.method == 'GET':
+        return Response()
 
 # @api_view(['GET','POST'])
 @api_view(['GET'])
