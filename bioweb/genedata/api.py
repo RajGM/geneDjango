@@ -26,10 +26,19 @@ def protein_add(request):
 def protein_detail(request, pk):
 
     print(pk)
-
-    test = Protein.objects.get(protein_id=pk)
+    print("TEST STARTS")
+    test = Protein.objects.filter(protein_id=pk)
     print(test)
+    serializer = ProteinSerializer(test,many=True)
+    print(serializer.data)
+    print("TEST ENDS")
+    return Response(serializer.data)
+    
+    #.values_list('protein_id','taxa_id')
+    #list
+    
 
+    '''
     try:
         protein = Protein.objects.filter(pk)
     except Protein.DoesNotExist:
@@ -37,38 +46,7 @@ def protein_detail(request, pk):
     if request.method == "GET":
         serializer = ProteinSerializer(protein)
         return JsonResponse(serializer.data)
-    
-
     '''
-    try:
-        gene = Gene.objects.get(pk=pk)
-    except Gene.DoesNotExist:
-        return HttpResponse(status=404)
-    if request.method == 'GET':
-        serializer = GeneSerializer(gene)
-        return Response(serializer.data)
-    '''
-    
-    data = [{
-      "proteinID": "A0A014PQC0",
-      "taxaID": 568076,
-      "cladeIdenitifier": "E",
-      "scientificName": "Metarhizium robertsii",
-      "domainDescription": "Glyceraldehyde 3-phosphate dehydrogenase catalytic domain",
-      "domainID": "PF02800",
-      "domain_start": 157,
-      "domain_stop": 314,
-      "lengthProtein": 338,
-      "proteinSequence": "MVIGVGFLLVLFSSSVLGILNAGVQLRIEELFDTPGHTNNWAVLVCTSRFWFNYRHVSNVLALYHTVKRLGIPDSNIILMLAEDVPCNPRNPRPEAAVLSA"
-    }]
-    returnData = data[0]
-    
-    print(pk)
-
-    if(pk=="0"):
-        return Response()
-    else:    
-        return Response(returnData)
 
 @api_view(['GET'])
 def pfam_detail(request, pk):
