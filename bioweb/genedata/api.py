@@ -7,7 +7,6 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-
 @api_view(['GET', 'POST'])
 def protein_add(request):
 
@@ -37,25 +36,22 @@ def protein_detail(request, pk):
 
 @api_view(['GET'])
 def proteins_list(request, pk):
-    # returns list of protein with matching taxa id with dbID and proteindID
-    data = [{
-        "id": 88766,
-        "protein_id": "A0A091FY39"
-    },
-    {
-        "id": 88761,
-        "protein_id": "A0A091FMY9"
-    },
-    {
-        "id": 88762,
-        "protein_id": "A0A091FQA9"
-    },
-    {
-        "id": 88763,
-        "protein_id": "A0A091FRU1"
-    }]
 
-    return Response(data)
+    proteinList = list((Protein.objects.filter(taxa_id=pk)).values_list('protein_id','pk'))
+    
+    if len(proteinList) == 0:
+        Response('Protein does not exist for the given organismID:'+str(pk))
+    else:
+        returnlist = [] 
+        for protein in proteinList:
+            proteinobj = {
+                "id":protein[1],
+                "protein_id":protein[0]
+            }
+            returnlist.append(proteinobj)
+    
+    return Response(returnlist)
+    
 
 @api_view(['GET'])
 def pfams_list(request, pk):
