@@ -12,6 +12,6 @@ class PfamSerializer(serializers.ModelSerializer):
         model = PfamDescription
         fields = ['pfam_id','ogranism_scientific_name']
 
-class DataSequences(serializers.ModelSerializer):
+class DataSequencesSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ['protein_id','protein_sequence']

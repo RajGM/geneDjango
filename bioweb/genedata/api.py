@@ -24,15 +24,42 @@ def protein_add(request):
 # @api_view(['GET','POST'])
 @api_view(['GET'])
 def protein_detail(request, pk):
+    returnData = []
+    
+    proteinList = ProteinSerializer(Protein.objects.filter(protein_id=pk),many=True)
+    print(len(proteinList.data)) #working for 0 as well
 
-    print(pk)
-    print("TEST STARTS")
-    test = Protein.objects.filter(protein_id=pk)
-    print(test)
-    serializer = ProteinSerializer(test, many=True)
-    print(serializer.data)
-    print("TEST ENDS")
-    return Response(serializer.data)
+    if len(proteinList.data) == 0:
+        return Response("Protein with ID:"+pk+" does not exists in database")
+    
+    returnData = {
+            "protein_id":proteinList.data[0]["protein_id"],
+            "sequence":(DataSequences.objects.filter(protein_id=pk)).values('protein_sequence')[0]["protein_sequence"],
+            "taxonomy":{
+                "taxa_id":proteinList.data[0]["taxa_id"],
+                "clade":proteinList.data[0]["clade_identifier"],
+                "genus":(proteinList.data[0]["scientific_name"].split())[0],
+                "species":(proteinList.data[0]["scientific_name"].split())[1],
+            },
+            "length":proteinList.data[0]["length_protein"]
+        }
+    
+    domainData=[]    
+    for protein in proteinList.data:
+        pfamObj={
+            "pfam_id":{
+                "domain_id":protein["domain_id"],
+                "domain_description":PfamDescription.objects.filter(pfam_id=protein["domain_id"]).values('ogranism_scientific_name')[0]["ogranism_scientific_name"]
+            },
+            "description":protein["domain_description"],
+            "start":protein["domain_start"],
+            "stop":protein["domain_stop"]
+        }
+        domainData.append(pfamObj)
+        
+    returnData["domains"]=domainData
+
+    return Response(returnData)
 
 @api_view(['GET'])
 def proteins_list(request, pk):
@@ -52,10 +79,8 @@ def proteins_list(request, pk):
     
     return Response(returnlist)
     
-
 @api_view(['GET'])
 def pfams_list(request, pk):
-    #.values_list('protein_id','pk')
     returnlist = 'Protein does not exist for the given organismID:'+str(pk)
     domainList = list((Protein.objects.filter(taxa_id=pk)).values('domain_id'))
     print(domainList)
