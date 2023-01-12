@@ -3,25 +3,25 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from .models import *
 from .serializers import *
-
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-@api_view(['GET','POST'])
+
+@api_view(['GET', 'POST'])
 def protein_add(request):
-    
+
     if request.method == 'POST':
         serializer = ProteinSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    #query domain and add taxanomy as per format
-    
+    # query domain and add taxanomy as per format
+
     return Response()
 
-#@api_view(['GET','POST'])
+# @api_view(['GET','POST'])
 @api_view(['GET'])
 def protein_detail(request, pk):
 
@@ -29,42 +29,14 @@ def protein_detail(request, pk):
     print("TEST STARTS")
     test = Protein.objects.filter(protein_id=pk)
     print(test)
-    serializer = ProteinSerializer(test,many=True)
+    serializer = ProteinSerializer(test, many=True)
     print(serializer.data)
     print("TEST ENDS")
     return Response(serializer.data)
-    
-    #.values_list('protein_id','taxa_id')
-    #list
-    
-
-    '''
-    try:
-        protein = Protein.objects.filter(pk)
-    except Protein.DoesNotExist:
-        return HttpResponse(status=404)
-    if request.method == "GET":
-        serializer = ProteinSerializer(protein)
-        return JsonResponse(serializer.data)
-    '''
-
-@api_view(['GET'])
-def pfam_detail(request, pk):
-    
-    data = [{
-      "domain_id,": "PF00001,",
-      "domain_description": "7transmembranereceptor(rhodopsinfamily)"
-    },
-    {
-      "domain_id,": "PF00002,",
-      "domain_description": "7transmembranereceptor(Secretinfamily)"
-    }]
-    returnData = data[0]
-    return Response(returnData)
 
 @api_view(['GET'])
 def proteins_list(request, pk):
-    #returns list of protein with matching taxa id with dbID and proteindID
+    # returns list of protein with matching taxa id with dbID and proteindID
     data = [{
         "id": 88766,
         "protein_id": "A0A091FY39"
@@ -86,7 +58,7 @@ def proteins_list(request, pk):
 
 @api_view(['GET'])
 def pfams_list(request, pk):
-    #returns list of pfams with matching taxa id with domainID and domainDescription
+    # returns list of pfams with matching taxa id with domainID and domainDescription
     data = [{
         "id": 88896,
         "pfam_id": {
@@ -119,47 +91,24 @@ def pfams_list(request, pk):
     return Response(data)
 
 @api_view(['GET'])
-def coverage(request, pk):
-    #returns list of pfams with matching taxa id with domainID and domainDescription
-    data = {
-      "taxaID": 568076,
-      "domainStart": 157,
-      "domainEnd": 314,
-      "lengthProtein": 338,
-      "proteinID": "A0A014PQC0",
-      "cladeIdenitifier": "E",
-      "scientificName": "Metarhizium robertsii",
-      "domainDescription": "Glyceraldehyde 3-phosphate dehydrogenase catalytic domain",
-      "domainID": "PF02800",
-      "proteinSequence": "MVIGVGFLLVLFSSSVLGILNAGVQLRIEELFDTPGHTNNWAVLVCTSRFWFNYRHVSNVLALYHTVKRLGIPDSNIILMLAEDVPCNPRNPRPEAAVLSA"
-    }
-    returnData = {"coverage":(data["domainStart"]-data["domainEnd"])/data["lengthProtein"]}
-    return Response(returnData)
+def pfam_detail(request, pk):
 
-'''
-@api_view(['GET'])
-def genes_list(request):
-    print("LOG HERE MORE")
-    gene = Gene.objects.all()
-    serializer = genes_list(gene, many=True)
-    return Response(serializer.data)
-'''
-
-'''
-    if request.method == 'POST':
-        serializer = GeneSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-'''
-
-'''
     try:
-        gene = Gene.objects.get(pk=pk)
-    except Gene.DoesNotExist:
-        return HttpResponse(status=404)
+        pfam = PfamDescription.objects.get(pfam_id=pk)
+    except PfamDescription.DoesNotExist:
+       return Response({'Pfam':pk+' does not exists in database'})
     if request.method == 'GET':
-        serializer = GeneSerializer(gene)
+        serializer = PfamSerializer(pfam)
         return Response(serializer.data)
-'''
+    
+@api_view(['GET'])
+def coverage(request, pk):
+
+    try:
+        protein = Protein.objects.get(protein_id=pk)
+    except Protein.DoesNotExist:
+        return Response({'Protein':pk+' does not exists in database'})
+    if request.method == 'GET':
+        serializer = ProteinSerializer(protein)
+        coverage = (serializer.data.get('domain_stop') - serializer.data.get('domain_start'))/serializer.data.get('length_protein')
+        return Response({'coverage':coverage})

@@ -7,6 +7,11 @@ class ProteinSerializer(serializers.ModelSerializer):
         fields = ['protein_id','taxa_id','clade_identifier','scientific_name','domain_description',
         'domain_id','domain_start','domain_stop','length_protein']
 
+class PfamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PfamDescription
+        fields = ['pfam_id','ogranism_scientific_name']
+
 '''
 class GeneSerializer(serializers.ModelSerializer):
     class Meta:
