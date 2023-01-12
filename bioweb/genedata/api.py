@@ -24,6 +24,30 @@ def protein_add(request):
 #@api_view(['GET','POST'])
 @api_view(['GET'])
 def protein_detail(request, pk):
+
+    print(pk)
+
+    test = Protein.objects.get(protein_id=pk)
+    print(test)
+
+    try:
+        protein = Protein.objects.filter(pk)
+    except Protein.DoesNotExist:
+        return HttpResponse(status=404)
+    if request.method == "GET":
+        serializer = ProteinSerializer(protein)
+        return JsonResponse(serializer.data)
+    
+
+    '''
+    try:
+        gene = Gene.objects.get(pk=pk)
+    except Gene.DoesNotExist:
+        return HttpResponse(status=404)
+    if request.method == 'GET':
+        serializer = GeneSerializer(gene)
+        return Response(serializer.data)
+    '''
     
     data = [{
       "proteinID": "A0A014PQC0",
