@@ -36,11 +36,11 @@ def protein_detail(request, pk):
 
 @api_view(['GET'])
 def proteins_list(request, pk):
-
+    returnlist = 'Protein does not exist for the given organismID:'+str(pk)
     proteinList = list((Protein.objects.filter(taxa_id=pk)).values_list('protein_id','pk'))
     
     if len(proteinList) == 0:
-        Response('Protein does not exist for the given organismID:'+str(pk))
+        Response(returnlist)
     else:
         returnlist = [] 
         for protein in proteinList:
@@ -55,37 +55,28 @@ def proteins_list(request, pk):
 
 @api_view(['GET'])
 def pfams_list(request, pk):
-    # returns list of pfams with matching taxa id with domainID and domainDescription
-    data = [{
-        "id": 88896,
-        "pfam_id": {
-            "domain_id": "mobidb-lite",
-            "domain_description": "disorder prediction"
-        }
-    },
-    {
-        "id": 88891,
-        "pfam_id": {
-            "domain_id": "PF00307",
-            "domain_description": "Calponinhomology(CH)domain"
-        }
-    },
-    {
-        "id": 88892,
-        "pfam_id": {
-            "domain_id": "PF00415",
-            "domain_description": "Regulatorofchromosomecondensation(RCC1)repeat"
-        }
-    },
-    {
-        "id": 88893,
-        "pfam_id": {
-            "domain_id": "PF07648",
-            "domain_description": "Kazal-typeserineproteaseinhibitordomain"
-        }
-    }]
-
-    return Response(data)
+    #.values_list('protein_id','pk')
+    returnlist = 'Protein does not exist for the given organismID:'+str(pk)
+    domainList = list((Protein.objects.filter(taxa_id=pk)).values('domain_id'))
+    print(domainList)
+    if(len(domainList)==0):
+        Response(returnlist)
+    else:
+        returnlist = []
+        for domain in domainList:
+            print(domain["domain_id"])
+            domainData=list(PfamDescription.objects.filter(pfam_id=domain["domain_id"]).values_list('pk','ogranism_scientific_name'))
+            print(domainData)
+            pfamObj = {
+                "id":domainData[0][0],
+                "pfam_id":{
+                    "domain_id":domain["domain_id"],
+                    "domain_description":domainData[0][1]
+                }
+            }
+            returnlist.append(pfamObj)
+        
+    return Response(returnlist)
 
 @api_view(['GET'])
 def pfam_detail(request, pk):
