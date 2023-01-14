@@ -27,8 +27,7 @@ def protein_detail(request, pk):
     returnData = []
     
     proteinList = ProteinSerializer(Protein.objects.filter(protein_id=pk),many=True)
-    print(len(proteinList.data)) #working for 0 as well
-
+    
     if len(proteinList.data) == 0:
         return Response("Protein with ID:"+pk+" does not exists in database")
     
@@ -83,15 +82,12 @@ def proteins_list(request, pk):
 def pfams_list(request, pk):
     returnlist = 'Protein does not exist for the given organismID:'+str(pk)
     domainList = list((Protein.objects.filter(taxa_id=pk)).values('domain_id'))
-    print(domainList)
     if(len(domainList)==0):
         Response(returnlist)
     else:
         returnlist = []
         for domain in domainList:
-            print(domain["domain_id"])
             domainData=list(PfamDescription.objects.filter(pfam_id=domain["domain_id"]).values_list('pk','ogranism_scientific_name'))
-            print(domainData)
             pfamObj = {
                 "id":domainData[0][0],
                 "pfam_id":{
