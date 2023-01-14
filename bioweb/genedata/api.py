@@ -1,3 +1,4 @@
+# import required packages
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
@@ -7,6 +8,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+# end point to add protein data
 @api_view(['GET', 'POST'])
 def protein_add(request):
 
@@ -21,6 +23,7 @@ def protein_add(request):
     if request.method == 'GET':
         return Response()
 
+# api to fetch protein data
 # @api_view(['GET','POST'])
 @api_view(['GET'])
 def protein_detail(request, pk):
@@ -60,6 +63,7 @@ def protein_detail(request, pk):
 
     return Response(returnData)
 
+# api to fetch protein list
 @api_view(['GET'])
 def proteins_list(request, pk):
     returnlist = 'Protein does not exist for the given organismID:'+str(pk)
@@ -77,7 +81,8 @@ def proteins_list(request, pk):
             returnlist.append(proteinobj)
     
     return Response(returnlist)
-    
+
+# api to fetch pfam list
 @api_view(['GET'])
 def pfams_list(request, pk):
     returnlist = 'Protein does not exist for the given organismID:'+str(pk)
@@ -99,6 +104,7 @@ def pfams_list(request, pk):
         
     return Response(returnlist)
 
+# api to fetch pfam data
 @api_view(['GET'])
 def pfam_detail(request, pk):
 
@@ -109,7 +115,8 @@ def pfam_detail(request, pk):
     if request.method == 'GET':
         serializer = PfamSerializer(pfam)
         return Response(serializer.data)
-    
+
+# api to fetch coverage of a protein
 @api_view(['GET'])
 def coverage(request, pk):
 

@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from . import api
 
+# url patterns maps api-end point with the supposed function to call
 urlpatterns = [
     path('', views.index, name='index'), #default page 
     path('api/protein/', api.protein_add, name="portein_add"), #POST path for protein

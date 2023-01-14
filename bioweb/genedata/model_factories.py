@@ -1,12 +1,14 @@
-import factory
+# import required packages
 
+import factory
 from random import randint
 from random import choice
 from django.test import TestCase
 from django.conf import settings
 from django.core.files import File
-
 from .models import *
+
+# model_factories holds the schema to test out the api endpoints
 
 class ProteinFactory(factory.django.DjangoModelFactory):
     protein_id = "A0A016U701"

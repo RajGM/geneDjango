@@ -1,5 +1,7 @@
 from django.db import models
 # Create your models here.
+
+# model file includes the schema for the database
 class DataSequences(models.Model):
     protein_id = models.CharField(max_length=256, null=False,
     blank=False, db_index=True)

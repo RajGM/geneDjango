@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import *
 
+# serializers.py is responsible for converting objects into data types understandable by javascript and front-end frameworks 
+
 class ProteinSerializer(serializers.ModelSerializer):
     class Meta:
         model = Protein
