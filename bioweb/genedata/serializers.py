@@ -12,7 +12,7 @@ class ProteinSerializer(serializers.ModelSerializer):
 class PfamSerializer(serializers.ModelSerializer):
     class Meta:
         model = PfamDescription
-        fields = ['pfam_id','ogranism_scientific_name']
+        fields = ['pfam_id','pfam_description']
 
 class DataSequencesSerializer(serializers.ModelSerializer):
     class Meta:

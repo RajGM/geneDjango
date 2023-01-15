@@ -51,7 +51,7 @@ def protein_detail(request, pk):
         pfamObj={
             "pfam_id":{
                 "domain_id":protein["domain_id"],
-                "domain_description":PfamDescription.objects.filter(pfam_id=protein["domain_id"]).values('ogranism_scientific_name')[0]["ogranism_scientific_name"]
+                "pfam_description":PfamDescription.objects.filter(pfam_id=protein["domain_id"]).values('pfam_description')[0]["pfam_description"]
             },
             "description":protein["domain_description"],
             "start":protein["domain_start"],
@@ -92,12 +92,12 @@ def pfams_list(request, pk):
     else:
         returnlist = []
         for domain in domainList:
-            domainData=list(PfamDescription.objects.filter(pfam_id=domain["domain_id"]).values_list('pk','ogranism_scientific_name'))
+            domainData=list(PfamDescription.objects.filter(pfam_id=domain["domain_id"]).values_list('pk','pfam_description'))
             pfamObj = {
                 "id":domainData[0][0],
                 "pfam_id":{
                     "domain_id":domain["domain_id"],
-                    "domain_description":domainData[0][1]
+                    "pfam_description":domainData[0][1]
                 }
             }
             returnlist.append(pfamObj)

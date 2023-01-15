@@ -50,7 +50,7 @@ Protein.objects.all().delete()
 # inseting data into database
 
 for pfam in pfams:
-    indiRow = PfamDescription.objects.create(pfam_id=pfam[0],ogranism_scientific_name=pfam[1])
+    indiRow = PfamDescription.objects.create(pfam_id=pfam[0],pfam_description=pfam[1])
     indiRow.save()
 
 for protein_seq in protein_sequences:
