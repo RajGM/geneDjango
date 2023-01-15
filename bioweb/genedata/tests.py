@@ -20,16 +20,16 @@ class pfamDescriptionTest(APITestCase):
         self.pfam1 =  PfamDescriptionFactory(pfam_id="TestID001")
         self.pfam2 =  PfamDescriptionFactory(pfam_id="TestID001")
         self.good_url = reverse('pfam_get', kwargs={'pk':1})
-        self.bad_url = '/api/pfam/PF00002'
+        self.bad_url = '/api/pfam/123'
 
     def testMe(self):
         response = self.client.get(self.good_url, format='json')
         response.render()
         self.assertEqual(response.status_code,200)
 
-    #def test_pfamDescriptionReturnFail(self):
-    #    response = self.client.get(self.bad_url, format='json')
-    #    self.assertEqual(response.status_code,200)
+    def test_pfamDescriptionReturnFail(self):
+        response = self.client.get(self.bad_url, format='json')
+        self.assertEqual(response.status_code,200)
 
 class pfamDescriptionSerialiserTest(APITestCase):
     pfam1 = None

@@ -33,7 +33,7 @@ class DataSequencesFactory(factory.django.DjangoModelFactory):
 
 class PfamDescriptionFactory(factory.django.DjangoModelFactory):
     pfam_id="PF01400"
-    ogranism_scientific_name="7transmembranereceptor(Secretinfamily)"
+    pfam_description="7transmembranereceptor(Secretinfamily)"
 
     class Meta:
         model = PfamDescription

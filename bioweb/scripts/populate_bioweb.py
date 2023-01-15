@@ -1,5 +1,4 @@
 # import required packages
-
 import os
 import sys
 import django

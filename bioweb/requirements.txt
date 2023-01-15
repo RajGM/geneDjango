@@ -1,0 +1,14 @@
+prerequisite
+Ubuntu 22.04
+
+Installation instructions
+apt install python
+apt install pip
+pip3 install virtualwrapper
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export WORKON_HOME=~/.virtualenvs
+source /usr/local/bin/virtualwrapper.sh
+mkvirtualenv -p /usr/bin/python3 advanced_web_dev
+workon advanced_web_dev
+pip install django
+pip install djangorestframework==3.11.1

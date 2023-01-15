@@ -32,7 +32,7 @@ def protein_detail(request, pk):
     proteinList = ProteinSerializer(Protein.objects.filter(protein_id=pk),many=True)
     
     if len(proteinList.data) == 0:
-        return Response("Protein with ID:"+pk+" does not exists in database")
+        return Response("Protein with ID:"+pk+" does not exists in database",status=status.HTTP_404_NOT_FOUND)
     
     returnData = {
             "protein_id":proteinList.data[0]["protein_id"],
